@@ -14,6 +14,17 @@ namespace Events
 			_Object_Ptr(nullptr)
 		{}
 
+		//						C++00 variation.												//
+		//						Usage: Delegate(Method_Ptr, Object_ptr);						//
+		//																						//
+		//template <typename Object>															//
+		//Delegate(_Ret(Object::* method)(Args...), Object* obj)								//
+		//	: _Func_Ptr((void*&)method),														//
+		//	_Object_Ptr(obj)																	//
+		//{																						//
+		//	_Function = [obj, method](Args... args) -> _Ret {return obj->*method(args...); };	//
+		//}																						//
+
 		template <typename Object>
 		Delegate(std::function<_Ret(Args...)>& func, _Ret(Object::* method)(Args...), Object* obj)
 			: _Function(func),
