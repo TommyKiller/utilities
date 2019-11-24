@@ -5,7 +5,7 @@
 
 namespace Events
 {
-	template <typename _Ret = void, typename... Args>
+	template <typename _Ret, typename... Args>
 	class Event
 	{
 	public:
