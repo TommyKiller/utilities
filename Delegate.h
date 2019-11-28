@@ -25,12 +25,14 @@ namespace Events
 		//	_Function = [obj, method](Args... args) -> _Ret {return obj->*method(args...); };	//
 		//}																						//
 
-		template <typename Object>
-		Delegate(std::function<_Ret(Args...)>& func, _Ret(Object::* method)(Args...), Object* obj)
+		template <typename MethodOwner, typename MethodContainer>
+		Delegate(std::function<_Ret(Args...)>& func, _Ret(MethodOwner::* method)(Args...), MethodContainer* obj)
 			: _Function(func),
 			_Func_Ptr((void*&)method),
 			_Object_Ptr(obj)
-		{}
+		{
+			static_assert(std::is_base_of<MethodOwner, MethodContainer>::value, "Given object does not contain specified method!");
+		}
 
 		Delegate(_Ret(*func)(Args...))
 			: _Function(func),
