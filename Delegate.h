@@ -14,24 +14,12 @@ namespace Events
 			_Object_Ptr(nullptr)
 		{}
 
-		//						C++00 variation.												//
-		//						Usage: Delegate(Method_Ptr, Object_ptr);						//
-		//																						//
-		//template <typename Object>															//
-		//Delegate(_Ret(Object::* method)(Args...), Object* obj)								//
-		//	: _Func_Ptr((void*&)method),														//
-		//	_Object_Ptr(obj)																	//
-		//{																						//
-		//	_Function = [obj, method](Args... args) -> _Ret {return obj->*method(args...); };	//
-		//}																						//
-
-		template <typename MethodOwner, typename MethodContainer>
-		Delegate(std::function<_Ret(Args...)>& func, _Ret(MethodOwner::* method)(Args...), MethodContainer* obj)
-			: _Function(func),
-			_Func_Ptr((void*&)method),
+		template <typename Object>
+		Delegate(_Ret(Object::* method)(Args...), Object* obj)
+			: _Func_Ptr((void*&)method),
 			_Object_Ptr(obj)
 		{
-			static_assert(std::is_base_of<MethodOwner, MethodContainer>::value, "Given object does not contain specified method!");
+			_Function = [obj, method](Args... args) -> _Ret {return (obj->*method)(args...); };
 		}
 
 		Delegate(_Ret(*func)(Args...))
