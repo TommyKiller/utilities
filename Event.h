@@ -20,7 +20,8 @@ namespace Events
 
 		Event& operator-=(const Delegate<_Ret, Args...>& delegate)
 		{
-			_Delegates.erase(std::find(_Delegates.begin(), _Delegates.end(), delegate));
+			auto found_r = std::find(_Delegates.rbegin(), _Delegates.rend(), delegate);
+			if (found_r != _Delegates.rend()) _Delegates.erase((found_r + 1).base());
 
 			return *this;
 		}
