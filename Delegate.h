@@ -1,8 +1,12 @@
 #ifndef DELEGATE_H
 #define DELEGATE_H
+#pragma once
+
+// Standard Headers
 #include <functional>
 
-namespace Events
+// Define Namespace
+namespace events
 {
 	template <typename _Ret, typename... Args>
 	class Delegate
@@ -59,6 +63,6 @@ namespace Events
 		void* _Object_Ptr;
 
 	};
-}
+} // namespace events
 
-#endif
+#endif // DELEGATE_H
