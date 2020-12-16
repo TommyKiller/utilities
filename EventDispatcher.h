@@ -3,7 +3,6 @@
 #pragma once
 
 // Standard Headers
-#include <string>
 #include <memory>
 #include <unordered_map>
 
@@ -13,13 +12,13 @@
 // Define Namespace
 namespace events
 {
-	template<typename _Ret, typename... Args>
+	template<typename _Key, typename _Ret, typename... Args>
 	class EventDispatcher
 	{
 	public:
 		EventDispatcher() = default;
 
-		EventDispatcher& addEventListener(std::string event, const Delegate<_Ret, Args...>& delegate)
+		EventDispatcher& addEventListener(_Key event, const Delegate<_Ret, Args...>& delegate)
 		{
 			if (_events.find(event) == _events.end())
 			{
@@ -30,7 +29,7 @@ namespace events
 			return *this;
 		}
 
-		EventDispatcher& removeEventListener(std::string event, const Delegate<_Ret, Args...>& delegate)
+		EventDispatcher& removeEventListener(_Key event, const Delegate<_Ret, Args...>& delegate)
 		{
 			if (_events.find(event) != _events.end())
 			{
@@ -40,7 +39,7 @@ namespace events
 			return *this;
 		}
 
-		void pollEvent(std::string event, Args... args)
+		void dispatchEvent(_Key event, Args... args)
 		{
 			if (_events.find(event) != _events.end())
 			{
@@ -48,7 +47,7 @@ namespace events
 			}
 		}
 
-		bool isEventActive(std::string event)
+		bool isEventActive(_Key event)
 		{
 			if (_events.find(event) != _events.end())
 			{
@@ -60,7 +59,7 @@ namespace events
 			}
 		}
 
-		void setEventActive(std::string event, bool active)
+		void setEventActive(_Key event, bool active)
 		{
 			if (_events.find(event) != _events.end())
 			{
@@ -68,7 +67,7 @@ namespace events
 			}
 		}
 
-		void erase(std::string event)
+		void erase(_Key event)
 		{
 			if (_events.find(event) != _events.end())
 			{
@@ -84,7 +83,7 @@ namespace events
 		virtual ~EventDispatcher() {}
 
 	private:
-		std::unordered_map<std::string, std::unique_ptr<Event<_Ret, Args...>>> _events;
+		std::unordered_map<_Key, std::unique_ptr<Event<_Ret, Args...>>> _events;
 	};
 } // namespace events
 
