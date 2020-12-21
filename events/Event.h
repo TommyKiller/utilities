@@ -71,4 +71,4 @@ namespace events
 	};
 } // namespace events
 
-#endif // EVENT_H
+#endif // !EVENT_H

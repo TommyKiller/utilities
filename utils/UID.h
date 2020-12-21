@@ -21,4 +21,4 @@ namespace utils
 	};
 } // namespace utils
 
-#endif // UID_H
+#endif // !UID_H

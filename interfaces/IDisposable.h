@@ -20,4 +20,4 @@ namespace interfaces
 	};
 } // namespace interfaces
 
-#endif // IDISPOSABLE_H
+#endif // !IDISPOSABLE_H

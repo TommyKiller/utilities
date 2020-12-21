@@ -65,4 +65,4 @@ namespace events
 	};
 } // namespace events
 
-#endif // DELEGATE_H
+#endif // !DELEGATE_H

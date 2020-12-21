@@ -87,4 +87,4 @@ namespace events
 	};
 } // namespace events
 
-#endif // EVENT_DISPATCHER_H
+#endif // !EVENT_DISPATCHER_H
