@@ -15,3 +15,8 @@ bool utils::UID::operator!=(const UID& other)
 {
     return !(*this == other);
 }
+
+std::string utils::UID::get()
+{
+    return _id;
+}

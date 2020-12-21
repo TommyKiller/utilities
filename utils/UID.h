@@ -15,6 +15,7 @@ namespace utils
 
 		bool operator==(const UID& other);
 		bool operator!=(const UID& other);
+		std::string get();
 
 	private:
 		std::string _id;
