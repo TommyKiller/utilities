@@ -11,11 +11,9 @@ namespace interfaces
 	class IDisposable
 	{
 	public:
-		void dispose();
+		virtual void dispose() = 0;
 
 	protected:
-		virtual void dispose(bool disposing) = 0;
-
 		std::atomic_bool _disposed;
 	};
 } // namespace interfaces
