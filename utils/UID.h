@@ -13,9 +13,9 @@ namespace utils
 	public:
 		UID(const char* key);
 
-		bool operator==(const UID& other);
-		bool operator!=(const UID& other);
-		std::string get();
+		bool operator==(const UID& other) const;
+		bool operator!=(const UID& other) const;
+		std::string get() const;
 
 	private:
 		std::string _id;
