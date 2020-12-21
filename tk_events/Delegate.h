@@ -6,7 +6,7 @@
 #include <functional>
 
 // Define Namespace
-namespace events
+namespace tk_events
 {
 	template <typename _Ret, typename... Args>
 	class Delegate
@@ -63,6 +63,6 @@ namespace events
 		void* _Object_Ptr;
 
 	};
-} // namespace events
+} // namespace tk_events
 
 #endif // !DELEGATE_H

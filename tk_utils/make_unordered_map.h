@@ -7,7 +7,7 @@
 #include <unordered_map>
 
 // Define Namespace
-namespace utils
+namespace tk_utils
 {
 	// Define Namespace
 	namespace detail
@@ -49,6 +49,6 @@ namespace utils
 		(map.emplace(std::forward<Args>(args)), ...);
 		return map;
 	}
-} // namespace utils
+} // namespace tk_utils
 
 #endif // !MAKE_UNORDERED_MAP_H

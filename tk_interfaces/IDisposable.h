@@ -6,7 +6,7 @@
 #include <atomic>
 
 // Define Namespace
-namespace interfaces
+namespace tk_interfaces
 {
 	class IDisposable
 	{
@@ -16,6 +16,6 @@ namespace interfaces
 	protected:
 		std::atomic_bool _disposed;
 	};
-} // namespace interfaces
+} // namespace tk_interfaces
 
 #endif // !IDISPOSABLE_H

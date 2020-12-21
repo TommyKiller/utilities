@@ -6,20 +6,22 @@
 #include <string>
 
 // Define Namespace
-namespace utils
+namespace tk_utils
 {
 	class UID
 	{
 	public:
 		UID(const char* key);
+		UID(const char* key, int id);
+
+		std::string toString() const;
 
 		bool operator==(const UID& other) const;
 		bool operator!=(const UID& other) const;
-		std::string get() const;
 
 	private:
-		std::string _id;
+		std::string _uid;
 	};
-} // namespace utils
+} // namespace tk_utils
 
 #endif // !UID_H

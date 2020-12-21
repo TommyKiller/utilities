@@ -10,7 +10,7 @@
 #include "Event.h"
 
 // Define Namespace
-namespace events
+namespace tk_events
 {
 	template<typename _Key, typename _Ret, typename... Args>
 	class EventDispatcher
@@ -24,7 +24,7 @@ namespace events
 			{
 				_events[event] = std::make_unique<Event<_Ret, Args...>>();
 			}
-			_events[event].get()->addDelegate(delegate);
+			_events[event].toString()->addDelegate(delegate);
 
 			return *this;
 		}
@@ -33,7 +33,7 @@ namespace events
 		{
 			if (_events.find(event) != _events.end())
 			{
-				_events[event].get()->removeDelegate(delegate);
+				_events[event].toString()->removeDelegate(delegate);
 			}
 
 			return *this;
@@ -43,7 +43,7 @@ namespace events
 		{
 			if (_events.find(event) != _events.end())
 			{
-				_events[event].get()->poll(args...);
+				_events[event].toString()->poll(args...);
 			}
 		}
 
@@ -51,7 +51,7 @@ namespace events
 		{
 			if (_events.find(event) != _events.end())
 			{
-				return _events[event].get()->isActive();
+				return _events[event].toString()->isActive();
 			}
 			else
 			{
@@ -63,7 +63,7 @@ namespace events
 		{
 			if (_events.find(event) != _events.end())
 			{
-				_events[event].get()->setActive(active);
+				_events[event].toString()->setActive(active);
 			}
 		}
 
@@ -85,6 +85,6 @@ namespace events
 	private:
 		std::unordered_map<_Key, std::unique_ptr<Event<_Ret, Args...>>> _events;
 	};
-} // namespace events
+} // namespace tk_events
 
 #endif // !EVENT_DISPATCHER_H

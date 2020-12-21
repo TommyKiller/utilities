@@ -10,7 +10,7 @@
 #include "Delegate.h"
 
 // Define Namespace
-namespace events
+namespace tk_events
 {
 	template <typename _Ret, typename... Args>
 	class Event
@@ -69,6 +69,6 @@ namespace events
 		Event& operator=(const Event&) = delete;
 
 	};
-} // namespace events
+} // namespace tk_events
 
 #endif // !EVENT_H
