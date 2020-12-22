@@ -4,14 +4,18 @@
 
 // Standard Headers
 #include <functional>
+#include <tuple>
 
 // Define Namespace
 namespace tk_events
 {
-	template <typename _Ret, typename... Args>
+	template <typename ret_t, typename... args_t>
 	class Delegate
 	{
 	public:
+		using ret_type = ret_t;
+		using args_type = std::tuple<args_t...>;
+
 		Delegate()
 			: _Function(nullptr),
 			_Func_Ptr(nullptr),
@@ -19,24 +23,24 @@ namespace tk_events
 		{}
 
 		template <typename Object>
-		Delegate(_Ret(Object::* method)(Args...), Object* obj)
+		Delegate(ret_t(Object::* method)(args_t...), Object* obj)
 			: _Func_Ptr((void*&)method),
 			_Object_Ptr(obj)
 		{
-			_Function = [obj, method](Args... args) -> _Ret {return (obj->*method)(args...); };
+			_Function = [obj, method](args_t... args) -> ret_t {return (obj->*method)(args...); };
 		}
 
-		Delegate(_Ret(*func)(Args...))
+		Delegate(ret_t(*func)(args_t...))
 			: _Function(func),
 			_Func_Ptr(func),
 			_Object_Ptr(nullptr)
 		{}
 
-		_Ret operator()(Args... args)
+		ret_t operator()(args_type args)
 		{
 			if (_Function)
 			{
-				return _Function(args...);
+				return std::apply(_Function, args);
 			}
 		}
 
@@ -58,7 +62,7 @@ namespace tk_events
 		}
 
 	private:
-		std::function<_Ret(Args...)> _Function;
+		std::function<ret_t(args_t...)> _Function;
 		void* _Func_Ptr;
 		void* _Object_Ptr;
 

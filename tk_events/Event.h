@@ -12,30 +12,35 @@
 // Define Namespace
 namespace tk_events
 {
-	template <typename _Ret, typename... Args>
+	template <class delegate_t>
 	class Event
 	{
 	public:
 		Event() = default;
 
-		bool isActive()
+		bool muted()
 		{
-			return _active.load();
+			return _muted.load();
 		}
 
-		void setActive(bool active)
+		void mute()
 		{
-			_active.exchange(active);
+			_muted.store(true);
 		}
 
-		Event& addDelegate(const Delegate<_Ret, Args...>& delegate)
+		void unmute()
+		{
+			_muted.store(false);
+		}
+
+		Event& addEventListener(const delegate_t& delegate)
 		{
 			_delegates.push_back(delegate);
 
 			return *this;
 		}
 
-		Event& removeDelegate(const Delegate<_Ret, Args...>& delegate)
+		Event& removeEventListener(const delegate_t& delegate)
 		{
 			auto found_r = std::find(_delegates.rbegin(), _delegates.rend(), delegate);
 			if (found_r != _delegates.rend()) _delegates.erase((found_r + 1).base());
@@ -43,26 +48,26 @@ namespace tk_events
 			return *this;
 		}
 
-		void poll(Args... args)
+		void dispatch(typename delegate_t::args_type args)
 		{
-			if (isActive())
+			if (!muted())
 			{
-				for (Delegate<_Ret, Args...>& delegate : _delegates)
+				for (delegate_t& delegate : _delegates)
 				{
-					delegate(args...);
+					delegate(args);
 				}
 			}
 		}
 
-		void clear()
+		void reset()
 		{
-			_delegates.clear();
+			_delegates.reset();
 		}
 
 	private:
-		std::vector<Delegate<_Ret, Args...>> _delegates;
+		std::vector<delegate_t> _delegates;
 
-		std::atomic<bool> _active {true};
+		std::atomic<bool> _muted {false};
 
 		Event(const Event&) = delete;
 
