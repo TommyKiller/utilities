@@ -27,7 +27,7 @@ namespace tk_events
 
 			if (_events.find(key) == _events.end())
 			{
-				_events[key] = std::make_unique<Event<delegate_t>>();
+				_events[key] = std::make_shared<Event<delegate_t>>();
 			}
 			_events[key].get()->addEventListener(delegate);
 
@@ -125,7 +125,7 @@ namespace tk_events
 		{
 			if (_events.find(key) == _events.end())
 			{
-				_events[key] = std::make_unique<Event<delegate_t>>();
+				_events[key] = std::make_shared<Event<delegate_t>>();
 			}
 			_events[key].get()->addEventListener(delegate);
 
@@ -194,7 +194,7 @@ namespace tk_events
 		virtual ~EventDispatcher() {}
 
 	private:
-		std::unordered_map<key_t, std::unique_ptr<Event<delegate_t>>> _events;
+		std::unordered_map<key_t, std::shared_ptr<Event<delegate_t>>> _events;
 
 	};
 } // namespace tk_events
