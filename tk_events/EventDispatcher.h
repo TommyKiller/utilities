@@ -111,7 +111,7 @@ namespace tk_events
 		virtual key_t assembleKey(key1_t key1, keys_t... keys) = 0;
 
 	private:
-		std::unordered_map<key_t, std::unique_ptr<Event<delegate_t>>> _events;
+		std::unordered_map<key_t, std::shared_ptr<Event<delegate_t>>> _events;
 
 	};
 
